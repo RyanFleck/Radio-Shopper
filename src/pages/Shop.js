@@ -61,7 +61,6 @@ export default function Shop(props) {
         if (msg.for == "shoppers") {
           return (
             <BuyCard itemDesc={msg.itemDesc} storeDesc={msg.storeDesc}/>
-            <br />
           )
         }
       })}
