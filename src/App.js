@@ -1,30 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+/* Material UI Components */
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+
+/* From components folder */
+import Nav from './components/Nav';
+
+const app_name = "B"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+   <React.Fragment>
+    <CssBaseline />
+        <Nav>
+
+        <Typography paragraph>
+        Testing
+        </Typography>
+
         <Button variant="contained" color="primary">
             Hello World 
         </Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+        </Nav>
+   </React.Fragment> 
   );
 }
 
