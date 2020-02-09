@@ -31,22 +31,21 @@ export default function SimpleCard(props) {
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Suzanne requests 
+          Suzanne requests items:
         </Typography>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h5">
           {props.itemDesc}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          adjective
+          At store:
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="h5" component="h5">
           {props.storeDesc}
-          <br />
-          {'"a benevolent smile"'}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">Accept</Button>
+        <Button size="small">Map</Button>
       </CardActions>
     </Card>
   );

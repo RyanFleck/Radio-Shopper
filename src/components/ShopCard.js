@@ -30,25 +30,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-var itemDesc = "Apple"
-var storeDesc = "Store Name"
-var storeName = ""
 
-function requestShopperAtStore() {
-  let message = new Paho.Message(JSON.stringify({ 
-    itemDesc: itemDesc,
-    storeDesc: storeDesc,
-    for: "shoppers"
-  }));
-
-  message.destinationName = "debug";
-  messaging.send(message);
-}
 
 export default function ShopCard(props) {
   const classes = useStyles();
-  storeName = props.title;
-  storeDesc = props.title;
+  var storeName = props.title;
+  var storeDesc = props.title;
+
+  var itemDesc = 'Red Supra T-Shirt, M'
+
+  function requestShopperAtStore(props) {
+    let message = new Paho.Message(JSON.stringify({
+      itemDesc: itemDesc,
+      storeDesc: storeDesc,
+      for: "shoppers"
+    }));
+
+    message.destinationName = "debug";
+    messaging.send(message);
+  }
 
   return (
     <React.Fragment>
@@ -70,10 +70,7 @@ export default function ShopCard(props) {
           </CardContent>
           <CardActions>
             <Button onClick={requestShopperAtStore} size="small" key="0" color="primary">
-              Enter
-                      </Button>
-            <Button onClick={requestShopperAtStore} size="small" key="1" color="primary">
-              Add favourite
+              Request a Shopper
                       </Button>
           </CardActions>
         </Card>
