@@ -1,7 +1,7 @@
 import messaging from "../Messaging";
 import React from 'react';
 
-class PubSub extends React{
+class PubSub extends React.Component{
 
     constructor(props){
         super(props);
