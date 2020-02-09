@@ -23,46 +23,108 @@ import Shop from './pages/Shop';
 import Buy from './pages/Buy';
 import Home from './pages/Home';
 import About from './pages/About';
+import { render } from '@testing-library/react';
 
-const app_name = "Shop N' Buy"
+import messaging from "./Messaging";
+import Paho from "paho-mqtt";
 
-const broker = new PubSub();
+const app_name = "Shop N' Buy";
 
-function App() {
+const broker = () => {console.log("F");}
 
-  broker.register()
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      connected: false,
+      messages: []
+    };
+    messaging.register(this.handleMessage.bind(this));
+  }
 
-  return (
-    <Router>
-      <CssBaseline />
-      <Nav title={app_name} >
+  render() {
+    const connected = this.state.connected;
+    const sendButton = connected ? <button onClick={() => this.handleSendClick()}>Send</button> : <button disabled>Send</button>;
+    return (
+      <Router>
+        <CssBaseline />
+        <Nav title={app_name} >
 
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
+          <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
 
-          <Route exact path="/shop">
-            <Shop broker={broker}/>
-          </Route>
+            <Route exact path="/shop">
+              <Shop broker={broker} />
+            </Route>
 
-          <Route path="/home">
-            <Home broker={broker}/>
-          </Route>
+            <Route path="/home">
+              <Home broker={broker} />
+            </Route>
 
-          <Route path="/buy">
-            <Buy broker={broker}/>
-          </Route>
+            <Route path="/buy">
+              <Buy broker={broker} />
+            </Route>
 
-          <Route path="/about">
-            <About />
-          </Route>
+            <Route path="/about">
+              <About />
+            </Route>
 
-        </Switch>
+          </Switch>
 
-      </Nav>
-    </Router>
-  );
+          <div class="buttons">
+            <button onClick={() => this.handleConnectClick()}>{connected ? 'Disconnect' : 'Connect'}</button>
+            {sendButton}
+          </div>
+          <ol>
+            {this.state.messages.map((message, index) => {
+              return <li key={index}>{message}</li>
+            })}
+          </ol>
+
+        </Nav>
+      </Router>
+    );
+  }
+
+  handleMessage(message) {
+    this.setState(state => {
+      const messages = state.messages.concat(message.payloadString);
+      return {
+        messages,
+        connected: state.connected,
+      };
+    });
+  }
+
+  handleSendClick() {
+    let message = new Paho.Message(JSON.stringify({ text: "Hello" }));
+    message.destinationName = "exampletopic";
+    messaging.send(message);
+  }
+
+  handleConnectClick() {
+    if (this.state.connected) {
+      messaging.disconnect();
+      this.setState({
+        connected: false,
+        messages: this.state.messages
+      });
+    } else {
+      messaging.connectWithPromise().then(response => {
+        console.log("Succesfully connected to Solace Cloud.", response);
+        messaging.subscribe("exampletopic");
+        this.setState({
+          connected: true,
+          messages: this.state.messages
+        });
+      }).catch(error => {
+        console.log("Unable to establish connection with Solace Cloud, see above logs for more details.", error);
+      });
+    }
+  }
+
 }
 
 export default App;

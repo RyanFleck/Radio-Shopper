@@ -22,6 +22,8 @@ class Messaging extends Paho.Client {
 		if (responseObject.errorCode !== 0) {
 			console.log("Connection lost with Solace Cloud");
 		}
+		
+		this.connectWithPromise();
 		// Add auto connect logic with backoff here if you want to automatically reconnect
 	}
 
