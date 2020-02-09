@@ -11,4 +11,5 @@ export default {
 	cleanSession: true,
 	useSSL: true,
 	reconnect: true
+	
 };
