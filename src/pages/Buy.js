@@ -16,23 +16,14 @@ class Buy extends React.Component {
           Welcome to version one of the application.
         </Typography>
 
-        <Button onClick={this.props.broker.submit}color="primary">
+        <Button color="primary">
           Shopping
         </Button>
 
-        <Button onClick={this.props.broker.submit} color="primary">
+        <Button color="primary">
           Submit
         </Button>
 
-
-        <div class="buttons">
-          {sendButton}
-        </div>
-        <ol>
-          {this.state.messages.map((message, index) => {
-            return <li key={index}>{message}</li>
-          })}
-        </ol>
 
       </React.Fragment>
     );
