@@ -55,7 +55,7 @@ export default function Buy(props) {
         <Grid container spacing={4}>
 
           {[1, 2, 3, 4, 5, 6, 7, 8].map(card => (
-            <ShopCard card={card} />
+            <ShopCard card={card} title={"Store"} content={"Stuff"}/>
           ))}
 
         </Grid>

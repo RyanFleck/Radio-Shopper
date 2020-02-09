@@ -10,6 +10,11 @@ import Container from '@material-ui/core/Container';
 import ShopCard from '../components/ShopCard';
 
 
+import messaging from "../Messaging";
+
+import Paho from "paho-mqtt";
+
+
 const useStyles = makeStyles(theme => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -35,7 +40,7 @@ export default function Shop(props) {
   return (
     <React.Fragment>
 
-      
+
       <div><h1>Shop for Others</h1></div>
 
       <Typography paragraph>
@@ -52,15 +57,14 @@ export default function Shop(props) {
         Submit
         </Button>
 
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
+      {props.messages.map(msg => {
+        if (msg.for == "shoppers") {
+          return (
+            <p>Suzanne would like an {msg.itemDesc} from {msg.storeDesc}</p>
+          )
+        }
+      })}
 
-          {[1, 2, 3, 4, 5, 6, 7, 8].map(card => (
-            <ShopCard card={card} key={card} title={"Store A"} />
-          ))}
-
-        </Grid>
-      </Container>
 
     </React.Fragment>
   );

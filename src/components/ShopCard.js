@@ -31,10 +31,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 var itemDesc = "Apple"
+var storeDesc = "Store Name"
 var storeName = ""
 
 function requestShopperAtStore() {
-  let message = new Paho.Message(JSON.stringify({ text: itemDesc }));
+  let message = new Paho.Message(JSON.stringify({ 
+    itemDesc: itemDesc,
+    storeDesc: storeDesc,
+    for: "shoppers"
+  }));
+
   message.destinationName = "debug";
   messaging.send(message);
 }
@@ -42,6 +48,7 @@ function requestShopperAtStore() {
 export default function ShopCard(props) {
   const classes = useStyles();
   storeName = props.title;
+  storeDesc = props.title;
 
   return (
     <React.Fragment>

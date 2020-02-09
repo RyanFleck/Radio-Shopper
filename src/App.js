@@ -39,7 +39,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       connected: false,
-      messages: []
+      messages: [],
+      json_messages: []
     };
     messaging.register(this.handleMessage.bind(this));
     this.handleConnectClick()
@@ -62,15 +63,15 @@ class App extends React.Component {
               </Route>
 
               <Route exact path="/shop">
-                <Shop data={this.state.messages} messaging={messaging} />
+                <Shop data={this.state.messages} messaging={messaging} messages={this.state.json_messages}/>
               </Route>
 
               <Route path="/home">
-                <Home data={this.state.messages} messaging={messaging} />
+                <Home data={this.state.messages} messaging={messaging} messages={this.state.json_messages}/>
               </Route>
 
               <Route path="/buy">
-                <Buy data={this.state.messages} messaging={messaging} />
+                <Buy data={this.state.messages} messaging={messaging} messages={this.state.json_messages}/>
               </Route>
 
               <Route path="/about">
@@ -86,11 +87,19 @@ class App extends React.Component {
 
   handleMessage(message) {
     this.setState(state => {
-      const messages = state.messages.concat(message.payloadString);
+      const s = message.payloadString;
+      const messages = state.messages.concat(s);
+      const json_messages = state.json_messages.concat(JSON.parse(s));
+
+      console.log(state.json_messages);
+
       return {
         messages,
+        json_messages,
         connected: state.connected,
       };
+
+
     });
   }
 
