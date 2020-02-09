@@ -1,6 +1,5 @@
 import React from 'react';
-import PubSub from '../components/PubSub';
-import Button from '@material-ui/core/Button';
+import Store from '../components/Store';
 import Typography from '@material-ui/core/Typography';
 
 function Home(props) {
@@ -11,17 +10,13 @@ function Home(props) {
 
         <Typography paragraph>
           Welcome to version one of the application.
+          Here are store currently supported by Shop N' Buy
         </Typography>
+        <Store>
+        </ Store>
 
-        <Button onClick={PubSub.actionOne} color="primary">
-          PubSub Action One
-        </Button>
-
-        <Button onClick={PubSub.actionTwo} color="primary">
-          PubSub Action Two
-        </Button>
-
-        </React.Fragment>
+       </React.Fragment>
+       
     );
 }
 
