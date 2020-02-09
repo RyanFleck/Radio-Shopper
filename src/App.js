@@ -45,78 +45,78 @@ class App extends React.Component {
 
 
 
-render() {
-  const connected = this.state.connected;
-  const sendButton = connected ? <button onClick={() => this.handleSendClick()}>Send</button> : <button disabled>Send</button>;
-  return (
-    <Router>
-      <CssBaseline />
-      <Nav title={app_name} >
+  render() {
+    const connected = this.state.connected;
+    const sendButton = connected ? <button onClick={() => this.handleSendClick()}>Send</button> : <button disabled>Send</button>;
+    return (
+      <Router>
+        <CssBaseline />
+        <Nav title={app_name} >
 
-        <Switch>
-          <Route exact path="/">
-            <Login />
-          </Route>
+          <Switch>
+            <Route exact path="/">
+              <Login />
+            </Route>
 
-          <Route exact path="/shop">
-            <Shop data={this.state.messages} messaging={messaging} />
-          </Route>
+            <Route exact path="/shop">
+              <Shop data={this.state.messages} messaging={messaging} />
+            </Route>
 
-          <Route path="/home">
-            <Home data={this.state.messages} messaging={messaging}/>
-          </Route>
+            <Route path="/home">
+              <Home data={this.state.messages} messaging={messaging} />
+            </Route>
 
-          <Route path="/buy">
-            <Buy data={this.state.messages} messaging={messaging} />
-          </Route>
+            <Route path="/buy">
+              <Buy data={this.state.messages} messaging={messaging} />
+            </Route>
 
-          <Route path="/about">
-            <About />
-          </Route>
+            <Route path="/about">
+              <About />
+            </Route>
 
-        </Switch>
+          </Switch>
 
-      </Nav>
-    </Router>
-  );
-}
+        </Nav>
+      </Router>
+    );
+  }
 
-handleMessage(message) {
-  this.setState(state => {
-    const messages = state.messages.concat(message.payloadString);
-    return {
-      messages,
-      connected: state.connected,
-    };
-  });
-}
-
-handleSendClick() {
-  let message = new Paho.Message(JSON.stringify({ text: "Hello" }));
-  message.destinationName = "exampletopic";
-  messaging.send(message);
-}
-
-handleConnectClick() {
-  if (this.state.connected) {
-    messaging.disconnect();
-    this.setState({
-      connected: false,
-      messages: this.state.messages
-    });
-  } else {
-    messaging.connectWithPromise().then(response => {
-      console.log("Succesfully connected to Solace Cloud.", response);
-      messaging.subscribe("exampletopic");
-      this.setState({
-        connected: true,
-        messages: this.state.messages
-      });
-    }).catch(error => {
-      console.log("Unable to establish connection with Solace Cloud, see above logs for more details.", error);
+  handleMessage(message) {
+    this.setState(state => {
+      const messages = state.messages.concat(message.payloadString);
+      return {
+        messages,
+        connected: state.connected,
+      };
     });
   }
-}
+
+  handleSendClick() {
+    let message = new Paho.Message(JSON.stringify({ text: "Hello" }));
+    message.destinationName = "exampletopic";
+    messaging.send(message);
+  }
+
+  handleConnectClick() {
+    if (this.state.connected) {
+      messaging.disconnect();
+      this.setState({
+        connected: false,
+        messages: this.state.messages
+      });
+    } else {
+      messaging.connectWithPromise().then(response => {
+        console.log("Succesfully connected to Solace Cloud.", response);
+        messaging.subscribe("exampletopic");
+        this.setState({
+          connected: true,
+          messages: this.state.messages
+        });
+      }).catch(error => {
+        console.log("Unable to establish connection with Solace Cloud, see above logs for more details.", error);
+      });
+    }
+  }
 
 }
 

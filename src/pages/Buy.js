@@ -3,31 +3,64 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
+import Grid from '@material-ui/core/Grid';
 
-class Buy extends React.Component {
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
-  render(props) {
-    return (
-      <React.Fragment>
+import ShopCard from '../components/ShopCard';
 
-        <div><h1>Buy for Yourself</h1></div>
+const useStyles = makeStyles(theme => ({
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+}));
 
-        <Typography paragraph>
-          Welcome to version one of the application.
+export default function Buy(props) {
+
+  const classes = useStyles();
+
+  return (
+    <React.Fragment>
+
+      <div><h1>Buy for Yourself</h1></div>
+
+      <Typography paragraph>
+        Welcome to version one of the application.
         </Typography>
 
-        <Button color="primary">
-          Shopping
+      <Button color="primary">
+        Shopping
         </Button>
 
-        <Button color="primary">
-          Submit
+      <Button color="primary">
+        Submit
         </Button>
 
+      <Container className={classes.cardGrid} maxWidth="md">
+        <Grid container spacing={4}>
 
-      </React.Fragment>
-    );
-  }
+          {[1, 2, 3, 4, 5, 6, 7, 8].map(card => (
+            <ShopCard card={card} />
+          ))}
+
+        </Grid>
+      </Container>
+
+
+    </React.Fragment>
+  );
+
 }
-
-export default Buy;

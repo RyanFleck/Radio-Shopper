@@ -43,7 +43,7 @@ export default function Shop(props) {
 
       <Button
 
-         color="primary">
+        color="primary">
         Ready
         </Button>
 
@@ -53,9 +53,11 @@ export default function Shop(props) {
 
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          {[1, 2].map(card => (
-            <ShopCard card={card} />
+
+          {[1, 2, 3, 4, 5, 6, 7, 8].map(card => (
+            <ShopCard card={card} title={"Store A"} />
           ))}
+
         </Grid>
       </Container>
 
