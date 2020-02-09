@@ -44,7 +44,7 @@ export default function Shop(props) {
       <div><h1>Shop for Others</h1></div>
 
       <Typography paragraph>
-        Welcome to version one of the application.
+        These are items that people want delivered from stores nearby.
         </Typography>
 
       <Button

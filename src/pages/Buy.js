@@ -42,18 +42,9 @@ export default function Buy(props) {
       <div><h1>Buy for Yourself</h1></div>
 
       <Typography paragraph>
-        Welcome to version one of the application.
+        Select a nearby store to purchase items from.
         </Typography>
 
-      <Button color="primary">
-        Shopping
-        </Button>
-
-      <Button color="primary">
-        Submit
-        </Button>
-
-      <TextBox />
 
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
