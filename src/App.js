@@ -29,12 +29,16 @@ function App() {
           Welcome to version one of the application.
         </Typography>
 
-        <Button onClick={PubSub.actionOne} color="primary">
-          PubSub Action One
+        <Button onClick={PubSub.subsricribe} color="primary">
+          Subsricribe
         </Button>
 
-        <Button onClick={PubSub.actionTwo} color="primary">
-          PubSub Action Two
+        <Button onClick={PubSub.connect} color="primary">
+          Connect
+        </Button>
+
+        <Button onClick={PubSub.send} color="primary">
+          Send
         </Button>
 
         <Typography paragraph>
