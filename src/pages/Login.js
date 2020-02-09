@@ -24,7 +24,6 @@ function Login(props) {
         <Button onClick={PubSub.actionOne} color="primary" >
             Login
         </Button>
-        <img src= {Logo} />
         <Button onClick={PubSub.actionOne} color="primary" >
             Sign Up
         </Button>
