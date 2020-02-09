@@ -59,15 +59,15 @@ render() {
           </Route>
 
           <Route exact path="/shop">
-            <Shop broker={broker} />
+            <Shop data={this.state.messages} messaging={messaging} />
           </Route>
 
           <Route path="/home">
-            <Home broker={broker} />
+            <Home data={this.state.messages} messaging={messaging}/>
           </Route>
 
           <Route path="/buy">
-            <Buy broker={broker} />
+            <Buy data={this.state.messages} messaging={messaging} />
           </Route>
 
           <Route path="/about">
@@ -75,15 +75,6 @@ render() {
           </Route>
 
         </Switch>
-
-        <div class="buttons">
-          {sendButton}
-        </div>
-        <ol>
-          {this.state.messages.map((message, index) => {
-            return <li key={index}>{message}</li>
-          })}
-        </ol>
 
       </Nav>
     </Router>

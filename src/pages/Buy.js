@@ -24,6 +24,16 @@ class Buy extends React.Component {
           Submit
         </Button>
 
+
+        <div class="buttons">
+          {sendButton}
+        </div>
+        <ol>
+          {this.state.messages.map((message, index) => {
+            return <li key={index}>{message}</li>
+          })}
+        </ol>
+
       </React.Fragment>
     );
   }
