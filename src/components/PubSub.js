@@ -1,32 +1,61 @@
 import messaging from "../Messaging";
-import React from 'react';
+import Paho from "paho-mqtt";
 
-class PubSub extends React.Component{
+class PubSub {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            connected : false,
-            messages: []
-        };
-        messaging.register(this.handleMessage.bind(this));
-    }
+	register() {
+		this.state = {
+			connected: false,
+			messages: []
+		};
 
-    static initPubSub(){
-        console.log("Run at the start to init pub-sub stuff.");
-    }
+		//messaging.onMessageArrived = this.handleMessage;
+		messaging.register(this.handleMessage.bind(this));
+		this.connect();
 
-    static subsricribe(){
-        console.log("Clicking a button activates this.");
 
-    }
+	}
 
-    static send(){
-        console.log("Clicking a button activates this.");
-    }
+	submit() {
+		let message = new Paho.Message(JSON.stringify({ text: "Hello darkness, my old friend." }));
+		message.destinationName = "exampletopic";
+		messaging.send(message);
+	}
 
-    static connect(){
-        console.log("Clicking a button activates this.");
-    }
+	connect() {
+		if (this.state.connected) {
+			messaging.disconnect();
+			this.state = {
+				connected: false,
+				messages: this.state.messages
+			};
+		} else {
+			messaging.connectWithPromise().then(response => {
+				console.log("Succesfully connected to Solace Cloud.", response);
+				messaging.subscribe("exampletopic");
+				this.state = {
+					connected: true,
+					messages: this.state.messages
+				};
+				console.log("Subscribed to a topic.");
+
+			}).catch(error => {
+				console.log("Unable to establish connection with Solace Cloud, see above logs for more details.", error);
+			});
+		}
+	}
+
+	handleMessage(message) {
+		this.setState(state => {
+			const messages = state.messages.concat(message.payloadString);
+			return {
+				messages,
+				connected: state.connected,
+			};
+		});
+
+		console.log("Got a message!");
+
+	}
 }
 export default PubSub;

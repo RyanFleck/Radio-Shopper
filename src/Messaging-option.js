@@ -1,8 +1,8 @@
 export default {
 	userName: "solace-cloud-client",
-	password: "<connection details password>",
+	password: "2ul4nmuvr35if6218b72fh9mq1",
 	invocationContext: {
-		host: "<WebSocket Secured MQTT Host>",
+		host: "mr2hd0llj3vvdf.messaging.solace.cloud",
 		port: 8443,
 		clientId: ""
 	},

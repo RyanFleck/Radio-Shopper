@@ -63,7 +63,7 @@ function Nav(props) {
       <div className={classes.toolbar} />
 
       <NavItems />
- 
+
     </div>
   );
 
@@ -118,8 +118,8 @@ function Nav(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        
-            {props.children}
+
+        {props.children}
       </main>
     </div>
   );

@@ -1,11 +1,14 @@
 import React from 'react';
-import PubSub from '../components/PubSub';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 
-function Buy(props) {
+
+class Buy extends React.Component {
+
+  render(props) {
     return (
-        <React.Fragment>
+      <React.Fragment>
 
         <div><h1>Buy for Yourself</h1></div>
 
@@ -13,16 +16,17 @@ function Buy(props) {
           Welcome to version one of the application.
         </Typography>
 
-        <Button onClick={PubSub.actionOne} color="primary">
-          PubSub Action One
+        <Button onClick={this.props.broker.submit}color="primary">
+          Shopping
         </Button>
 
-        <Button onClick={PubSub.actionTwo} color="primary">
-          PubSub Action Two
+        <Button onClick={this.props.broker.submit} color="primary">
+          Submit
         </Button>
 
-        </React.Fragment>
+      </React.Fragment>
     );
+  }
 }
 
 export default Buy;
