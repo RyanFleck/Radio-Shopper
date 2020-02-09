@@ -30,7 +30,7 @@ import Paho from "paho-mqtt";
 
 const app_name = "Shop N' Buy";
 
-const broker = () => {console.log("F");}
+const broker = () => { console.log("F"); }
 
 class App extends React.Component {
   constructor(props) {
@@ -40,90 +40,92 @@ class App extends React.Component {
       messages: []
     };
     messaging.register(this.handleMessage.bind(this));
+    this.handleConnectClick()
   }
 
-  render() {
-    const connected = this.state.connected;
-    const sendButton = connected ? <button onClick={() => this.handleSendClick()}>Send</button> : <button disabled>Send</button>;
-    return (
-      <Router>
-        <CssBaseline />
-        <Nav title={app_name} >
 
-          <Switch>
-            <Route exact path="/">
-              <Login />
-            </Route>
 
-            <Route exact path="/shop">
-              <Shop broker={broker} />
-            </Route>
+render() {
+  const connected = this.state.connected;
+  const sendButton = connected ? <button onClick={() => this.handleSendClick()}>Send</button> : <button disabled>Send</button>;
+  return (
+    <Router>
+      <CssBaseline />
+      <Nav title={app_name} >
 
-            <Route path="/home">
-              <Home broker={broker} />
-            </Route>
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
 
-            <Route path="/buy">
-              <Buy broker={broker} />
-            </Route>
+          <Route exact path="/shop">
+            <Shop broker={broker} />
+          </Route>
 
-            <Route path="/about">
-              <About />
-            </Route>
+          <Route path="/home">
+            <Home broker={broker} />
+          </Route>
 
-          </Switch>
+          <Route path="/buy">
+            <Buy broker={broker} />
+          </Route>
 
-          <div class="buttons">
-            <button onClick={() => this.handleConnectClick()}>{connected ? 'Disconnect' : 'Connect'}</button>
-            {sendButton}
-          </div>
-          <ol>
-            {this.state.messages.map((message, index) => {
-              return <li key={index}>{message}</li>
-            })}
-          </ol>
+          <Route path="/about">
+            <About />
+          </Route>
 
-        </Nav>
-      </Router>
-    );
-  }
+        </Switch>
 
-  handleMessage(message) {
-    this.setState(state => {
-      const messages = state.messages.concat(message.payloadString);
-      return {
-        messages,
-        connected: state.connected,
-      };
+        <div class="buttons">
+          {sendButton}
+        </div>
+        <ol>
+          {this.state.messages.map((message, index) => {
+            return <li key={index}>{message}</li>
+          })}
+        </ol>
+
+      </Nav>
+    </Router>
+  );
+}
+
+handleMessage(message) {
+  this.setState(state => {
+    const messages = state.messages.concat(message.payloadString);
+    return {
+      messages,
+      connected: state.connected,
+    };
+  });
+}
+
+handleSendClick() {
+  let message = new Paho.Message(JSON.stringify({ text: "Hello" }));
+  message.destinationName = "exampletopic";
+  messaging.send(message);
+}
+
+handleConnectClick() {
+  if (this.state.connected) {
+    messaging.disconnect();
+    this.setState({
+      connected: false,
+      messages: this.state.messages
     });
-  }
-
-  handleSendClick() {
-    let message = new Paho.Message(JSON.stringify({ text: "Hello" }));
-    message.destinationName = "exampletopic";
-    messaging.send(message);
-  }
-
-  handleConnectClick() {
-    if (this.state.connected) {
-      messaging.disconnect();
+  } else {
+    messaging.connectWithPromise().then(response => {
+      console.log("Succesfully connected to Solace Cloud.", response);
+      messaging.subscribe("exampletopic");
       this.setState({
-        connected: false,
+        connected: true,
         messages: this.state.messages
       });
-    } else {
-      messaging.connectWithPromise().then(response => {
-        console.log("Succesfully connected to Solace Cloud.", response);
-        messaging.subscribe("exampletopic");
-        this.setState({
-          connected: true,
-          messages: this.state.messages
-        });
-      }).catch(error => {
-        console.log("Unable to establish connection with Solace Cloud, see above logs for more details.", error);
-      });
-    }
+    }).catch(error => {
+      console.log("Unable to establish connection with Solace Cloud, see above logs for more details.", error);
+    });
   }
+}
 
 }
 
