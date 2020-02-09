@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 
+import TextBox from '../components/TextBox';
+
 import Grid from '@material-ui/core/Grid';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,6 +52,8 @@ export default function Buy(props) {
       <Button color="primary">
         Submit
         </Button>
+
+      <TextBox />
 
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>

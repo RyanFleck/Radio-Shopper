@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import ShopCard from '../components/ShopCard';
+import BuyCard from '../components/BuyCard';
 
 
 import messaging from "../Messaging";
@@ -60,7 +60,8 @@ export default function Shop(props) {
       {props.messages.map(msg => {
         if (msg.for == "shoppers") {
           return (
-            <p>Suzanne would like an {msg.itemDesc} from {msg.storeDesc}</p>
+            <BuyCard itemDesc={msg.itemDesc} storeDesc={msg.storeDesc}/>
+            <br />
           )
         }
       })}
