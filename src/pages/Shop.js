@@ -4,10 +4,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 class Shop extends React.Component {
-  constructor(props){
-    super(props);
-    this.broker = new PubSub();
-  }
+
   render(){
   return (
         <React.Fragment>
@@ -20,16 +17,16 @@ class Shop extends React.Component {
 
         <Button 
         
-        onClick={PubSub.connect} color="primary">
+        onClick={this.props.broker.submit} color="primary">
           Ready
         </Button>
 
-        <Button onClick={PubSub.submit} color="primary">
+        <Button onClick={this.props.broker.submit} color="primary">
           Submit
         </Button>
 
         <h1>
-        {PubSub.state.messages.call(this.broker).map((message, index) => {
+        {this.props.broker.state.messages.map((message, index) => {
 						return <li key={index}>{message}</li>
 					})}</h1>
 

@@ -1,29 +1,30 @@
 import messaging from "../Messaging";
-import React from 'react';
 import Paho from "paho-mqtt";
 
-class PubSub extends React.Component{
+class PubSub{
 
-    constructor(props){
-        super(props);
+    register(){
         this.state = {
             connected : false,
             messages: []
-        };
-       messaging.register(PubSub.handleMessage.bind(this));
+		};
+		
+	   messaging.register(this.handleMessage.bind(this));
+	   
+	   this.connect();
     }
 
-    static initPubSub(){
-        console.log("Run at the start to init pub-sub stuff.");
-    }
-
-    static submit(){
+    submit(){
         let message = new Paho.Message(JSON.stringify({text: "Hello"}));
 		message.destinationName = "exampletopic";
-        messaging.send(message);    
+		messaging.send(message); 
+		
+		let message2 = new Paho.Message(JSON.stringify({text: "World"}));
+		message2.destinationName = "exampletopic";
+        messaging.send(message2); 
     }
     
-    static connect(){
+    connect(){
         if (this.state.connected) {
 			messaging.disconnect();
 			this.state={
@@ -38,13 +39,15 @@ class PubSub extends React.Component{
 					connected: true,
 					messages: this.state.messages
 				};
+				console.log("Subscribed to a topic.");
+
 			}).catch(error => {
 				console.log("Unable to establish connection with Solace Cloud, see above logs for more details.", error);
 			});
         } 
     }
 
-    static handleMessage(message){
+    handleMessage(message){
         this.setState(state => {
 			const messages = state.messages.concat(message.payloadString);
 			return {

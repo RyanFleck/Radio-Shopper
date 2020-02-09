@@ -26,9 +26,11 @@ import About from './pages/About';
 
 const app_name = "Shop N' Buy"
 
+const broker = new PubSub();
+
 function App() {
 
-  PubSub.initPubSub()
+  broker.register()
 
   return (
     <Router>
@@ -41,15 +43,15 @@ function App() {
           </Route>
 
           <Route exact path="/shop">
-            <Shop />
+            <Shop broker={broker}/>
           </Route>
 
           <Route path="/home">
-            <Home />
+            <Home broker={broker}/>
           </Route>
 
           <Route path="/buy">
-            <Buy />
+            <Buy broker={broker}/>
           </Route>
 
           <Route path="/about">
