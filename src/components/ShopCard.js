@@ -7,8 +7,10 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
+
+import messaging from "../Messaging";
+
+import Paho from "paho-mqtt";
 
 const useStyles = makeStyles(theme => ({
   cardGrid: {
@@ -28,10 +30,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var itemDesc = "Apple"
+var storeName = ""
+
+function requestShopperAtStore() {
+  let message = new Paho.Message(JSON.stringify({ text: itemDesc }));
+  message.destinationName = "debug";
+  messaging.send(message);
+}
 
 export default function ShopCard(props) {
   const classes = useStyles();
+  storeName = props.title;
 
   return (
     <React.Fragment>
@@ -52,10 +62,10 @@ export default function ShopCard(props) {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small" color="primary">
+            <Button onClick={requestShopperAtStore} size="small" key="0" color="primary">
               Enter
                       </Button>
-            <Button size="small" color="primary">
+            <Button onClick={requestShopperAtStore} size="small" key="1" color="primary">
               Add favourite
                       </Button>
           </CardActions>

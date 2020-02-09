@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 
 import ShopCard from '../components/ShopCard';
 
+
 const useStyles = makeStyles(theme => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -26,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
 }));
-
 
 export default function Shop(props) {
 
@@ -56,7 +56,7 @@ export default function Shop(props) {
         <Grid container spacing={4}>
 
           {[1, 2, 3, 4, 5, 6, 7, 8].map(card => (
-            <ShopCard card={card} title={"Store A"} />
+            <ShopCard card={card} key={card} title={"Store A"} />
           ))}
 
         </Grid>

@@ -96,9 +96,11 @@ class App extends React.Component {
 
   handleSendClick() {
     let message = new Paho.Message(JSON.stringify({ text: "Hello" }));
-    message.destinationName = "exampletopic";
+    message.destinationName = "debug";
     messaging.send(message);
   }
+
+
 
   handleConnectClick() {
     if (this.state.connected) {
@@ -111,6 +113,7 @@ class App extends React.Component {
       messaging.connectWithPromise().then(response => {
         console.log("Succesfully connected to Solace Cloud.", response);
         messaging.subscribe("exampletopic");
+        messaging.subscribe("debug");
         this.setState({
           connected: true,
           messages: this.state.messages
