@@ -25,6 +25,8 @@ import Home from './pages/Home';
 import About from './pages/About';
 import { render } from '@testing-library/react';
 
+import Container from '@material-ui/core/Container';
+
 import messaging from "./Messaging";
 import Paho from "paho-mqtt";
 
@@ -52,30 +54,31 @@ class App extends React.Component {
       <Router>
         <CssBaseline />
         <Nav title={app_name} >
+          <Container maxWidth="md">
 
-          <Switch>
-            <Route exact path="/">
-              <Login />
-            </Route>
+            <Switch>
+              <Route exact path="/">
+                <Login />
+              </Route>
 
-            <Route exact path="/shop">
-              <Shop data={this.state.messages} messaging={messaging} />
-            </Route>
+              <Route exact path="/shop">
+                <Shop data={this.state.messages} messaging={messaging} />
+              </Route>
 
-            <Route path="/home">
-              <Home data={this.state.messages} messaging={messaging} />
-            </Route>
+              <Route path="/home">
+                <Home data={this.state.messages} messaging={messaging} />
+              </Route>
 
-            <Route path="/buy">
-              <Buy data={this.state.messages} messaging={messaging} />
-            </Route>
+              <Route path="/buy">
+                <Buy data={this.state.messages} messaging={messaging} />
+              </Route>
 
-            <Route path="/about">
-              <About />
-            </Route>
+              <Route path="/about">
+                <About />
+              </Route>
 
-          </Switch>
-
+            </Switch>
+          </Container>
         </Nav>
       </Router>
     );

@@ -35,6 +35,7 @@ export default function Shop(props) {
   return (
     <React.Fragment>
 
+      
       <div><h1>Shop for Others</h1></div>
 
       <Typography paragraph>
