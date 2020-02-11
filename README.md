@@ -2,7 +2,9 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c47d6cca-93ca-42b6-a512-220526c9b795/deploy-status)](https://app.netlify.com/sites/radio-shopper/deploys)
 
-Working names: Radio Shopper, Shopler, Shop N' Buy
+:trophy: Won the **Wolfram Award** for finishing in the top 20 projects at uOttaHack3.
+
+Alternative working names: Shopler, Radio Shopper.
 
 ## Team Members
 
