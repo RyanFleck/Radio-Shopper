@@ -15,7 +15,7 @@ function NavItems(props) {
     return (
         <React.Fragment>
             <Divider />
-            <List>
+            <List onClick={props.toggle}>
                 {/*
                 <ListItem button key={0} component={Link} to="/">
                     <ListItemIcon>
@@ -43,7 +43,7 @@ function NavItems(props) {
 
             </List>
             <Divider />
-            <List>
+            <List onClick={props.toggle}>
                 {/*
                 <ListItem button key={0} component={Link} to="/">
                     <ListItemIcon>

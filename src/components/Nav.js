@@ -62,7 +62,7 @@ function Nav(props) {
     <div>
       <div className={classes.toolbar} />
 
-      <NavItems />
+      <NavItems toggle={handleDrawerToggle}/>
 
     </div>
   );
@@ -120,6 +120,7 @@ function Nav(props) {
         <div className={classes.toolbar} />
 
         {props.children}
+
       </main>
     </div>
   );
