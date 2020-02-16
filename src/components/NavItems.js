@@ -11,11 +11,18 @@ import AboutIcon from '@material-ui/icons/Info';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-function NavItems(props) {
+function NavItems (props) {
+    
+    var itemOnClick = () => { 
+        if (props.mobile) { 
+            props.toggle();
+        }
+    }
+
     return (
         <React.Fragment>
             <Divider />
-            <List onClick={props.toggle}>
+            <List onClick={itemOnClick}>
                 {/*
                 <ListItem button key={0} component={Link} to="/">
                     <ListItemIcon>
@@ -43,7 +50,7 @@ function NavItems(props) {
 
             </List>
             <Divider />
-            <List onClick={props.toggle}>
+            <List onClick={itemOnClick}>
                 {/*
                 <ListItem button key={0} component={Link} to="/">
                     <ListItemIcon>

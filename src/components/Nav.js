@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Nav(props) {
+function Nav (props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -62,7 +62,7 @@ function Nav(props) {
     <div>
       <div className={classes.toolbar} />
 
-      <NavItems toggle={handleDrawerToggle}/>
+      <NavItems toggle={handleDrawerToggle} />
 
     </div>
   );
@@ -101,7 +101,10 @@ function Nav(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <div>
+              <div className={classes.toolbar} />
+              <NavItems mobile={true} toggle={handleDrawerToggle} />
+            </div>
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -112,7 +115,10 @@ function Nav(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            <div>
+              <div className={classes.toolbar} />
+              <NavItems mobile={false} toggle={handleDrawerToggle} />
+            </div>
           </Drawer>
         </Hidden>
       </nav>
